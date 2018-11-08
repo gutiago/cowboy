@@ -214,6 +214,7 @@ loop(State=#state{parent=Parent, socket=Socket, transport=Transport, opts=Opts,
 			cowboy_children:shutdown_timeout(Children, Ref, Pid),
 			loop(State, Buffer);
 		{timeout, TimerRef, Reason} ->
+			io:format("Got timeout ~p~n", [Reason]),
 			timeout(State, Reason);
 		{timeout, _, _} ->
 			loop(State, Buffer);

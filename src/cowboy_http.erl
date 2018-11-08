@@ -1341,7 +1341,8 @@ early_error(StatusCode0, #state{socket=Socket, transport=Transport,
 -spec terminate(_, _) -> no_return().
 terminate(undefined, Reason) ->
 	exit({shutdown, Reason});
-terminate(State=#state{streams=Streams, children=Children}, Reason) ->
+terminate(State=#state{socket=Socket, streams=Streams, children=Children}, Reason) ->
+	io:format("Terminate socket ~p~n", [{inet:peername(socket), Reason}]),
 	terminate_all_streams(State, Streams, Reason),
 	cowboy_children:terminate(Children),
 	terminate_linger(State),

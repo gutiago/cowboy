@@ -1342,7 +1342,7 @@ early_error(StatusCode0, #state{socket=Socket, transport=Transport,
 terminate(undefined, Reason) ->
 	exit({shutdown, Reason});
 terminate(State=#state{socket=Socket, streams=Streams, children=Children}, Reason) ->
-	io:format("Terminate socket ~p~n", [{inet:peername(socket), Reason}]),
+	io:format("Terminate socket ~p~n", [{inet:peername(Socket), Reason}]),
 	terminate_all_streams(State, Streams, Reason),
 	cowboy_children:terminate(Children),
 	terminate_linger(State),

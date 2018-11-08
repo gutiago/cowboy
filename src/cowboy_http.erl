@@ -214,7 +214,7 @@ loop(State=#state{parent=Parent, socket=Socket, transport=Transport, opts=Opts,
 			cowboy_children:shutdown_timeout(Children, Ref, Pid),
 			loop(State, Buffer);
 		{timeout, TimerRef, Reason} ->
-			io:format("Got timeout ~p~n", [Reason]),
+			%%io:format("Got timeout ~p~n", [Reason]),
 			timeout(State, Reason);
 		{timeout, _, _} ->
 			loop(State, Buffer);
@@ -1343,7 +1343,7 @@ early_error(StatusCode0, #state{socket=Socket, transport=Transport,
 terminate(undefined, Reason) ->
 	exit({shutdown, Reason});
 terminate(State=#state{socket=Socket, streams=Streams, children=Children}, Reason) ->
-	io:format("Terminate socket ~p~n", [{inet:peername(Socket), Reason}]),
+	%%io:format("Terminate socket ~p~n", [{inet:peername(Socket), Reason}]),
 	terminate_all_streams(State, Streams, Reason),
 	cowboy_children:terminate(Children),
 	terminate_linger(State),
